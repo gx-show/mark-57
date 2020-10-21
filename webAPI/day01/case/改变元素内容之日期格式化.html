@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日期格式化</title>
+    <style>
+        p,div{
+            width: 300px;
+            height: 30px;
+            line-height: 30px;
+            background-color: pink;
+            text-align: center;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">点击获取当前时间</button>
+    <div>时间</div>
+    <p></p>
+    <script>
+        // 获取元素
+        var oBtn = document.getElementById('btn');
+        var oP = document.querySelector('p')
+        var oDiv = document.querySelector('div')
+        // 注册事件
+        oBtn.onclick = function(){
+            oP.innerHTML = getDate()
+        }
+        // 页面加载就调用这个函数
+        oDiv.innerHTML = getDate()
+        // 格式化日期的封装函数
+        function getDate() {
+            var date = new Date();
+            // 我们写一个 2019年 5月 1日 星期三
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var dates = date.getDate();
+            var arr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            var day = date.getDay();
+            return '今天是：' + year + '年' + month + '月' + dates + '日 ' + arr[day];
+        }
+    </script>
+</body>
+</html>

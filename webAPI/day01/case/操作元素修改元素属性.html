@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>改变元素属性</title>
+    <style>
+        img {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="ldh">刘德华</button>
+    <button id="zxy">张学友</button> <br>
+    <img src="images/ldh.jpg" alt="" title="刘德华"><br>
+    <button class="btn1">点击</button>
+    <input type="text" value="输入内容">
+    <script>
+        // 需求: 点击按钮时 img更换 title相对应更换
+        //    修改元素属性 src
+        // 获取元素
+        var ldh = document.querySelector('#ldh');
+        var zxy = document.querySelector('#zxy');
+        var oImg = document.querySelector('img');
+        // 注册点击事件
+        zxy.onclick = function () {
+            oImg.src = 'images/zxy.jpg';
+            oImg.title = '张学友'
+        }
+        // 注册点击事件
+        ldh.onclick = function () {
+            oImg.src = 'images/ldh.jpg'
+            oImg.title = '刘德华'
+        }  
+        // 需求: 点击 btn1 修改 input的value值
+        // 获取元素
+        // 这里的两种方法的返回值都是伪数组, 所以使用时需注意
+        var btn1 = document.getElementsByClassName('btn1');
+        var oIpt = document.getElementsByTagName('input');
+        btn1[0].onclick = function(){
+            oIpt[0].value = '123'
+        } 
+    </script>
+</body>
+
+</html>

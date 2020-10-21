@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>显示隐藏文本框内容</title>
+    <style>
+        input {
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" value="手机">
+    <script>
+       
+        // 需求是当鼠标点到文本框,将文本框的value 值清空,
+        // 如果用户输入了内容就在鼠标获取焦点时,文本框的value 值改成用户输入的内容
+        // 如果用户没有输入内容,就将value值改成默认的
+        // 1. 获取元素
+        // var oIpt = document.querySelector('input');
+        // // 注册事件 获得焦点事件     
+        // oIpt.onfocus = function(){
+        //     if(this.value === '手机'){
+        //         this.value = ''
+        //     }
+        //     this.style.color = '#666'
+        // }
+        // //注册事件 失去焦点事件
+        // oIpt.onblur = function(){
+            // trim() 去除左右两边的空格
+        //     if (this.value.trim() === ''){
+        //         this.value = '手机'
+        //     }
+        //     this.style.color = '#ccc'
+        // }
+
+         // 获取元素, 这个方法返回的是一个伪数组
+         var oIpt = document.getElementsByTagName('input');
+        // 注册事件 获取焦点事件
+        oIpt[0].onfocus = function(){
+            if(this.value == '手机'){
+                this.value = ''
+            }
+            this.style.color = '#333'
+        }
+        // 注册事件 失去焦点事件
+        oIpt[0].onblur = function(){
+            if(this.value.trim() === ''){
+                this.value = '手机'
+            }
+            this.style.color = '#ccc'
+        }
+    </script>
+
+</body>
+
+</html>

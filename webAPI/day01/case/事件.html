@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件</title>
+</head>
+
+<body>
+    <button id="btn">hello</button>
+    <script>
+        var btn = document.getElementById('btn');
+        function fn() {
+            alert ('world')
+        }
+        // 注册点击事件时 函数不能给(), 不然还没到事件触发 函数就在页面打开时就执行完了
+        // btn.onclick = fn();
+        btn.onclick = fn;
+        // btn.onclick = function(){
+        //     // console.log('123');
+        //     alert('world')
+        //     return '1+2';
+        // }
+    </script>
+</body>
+
+</html>
