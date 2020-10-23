@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">开关灯</button>
+    <script>
+        var btn = document.getElementById('btn');
+        var bg = document.documentElement;
+        var flag = true
+        btn.onclick = function () {
+            //    if(flag == 1){
+            //     bg.style.background = 'black'
+            //     flag = 0;
+            //    }else{
+            //     bg.style.background = '#fff'
+            //     flag = 1;
+            //    }
+            bg.style.background = flag ? 'black' : '#fff';
+            flag = !flag
+            console.log(flag);
+            console.log(btn);
+        }
+    </script>
+</body>
+
+</html>

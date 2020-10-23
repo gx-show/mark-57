@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态添加用户</title>
+    <style>
+        table {
+            width: 800px;
+            /* margin: 100px auto; */
+            text-align: center;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead tr {
+            height: 30px;
+            background-color: skyblue;
+        }
+
+        tbody tr {
+            height: 30px;
+            background-color: #eec;
+        }
+
+        tbody td {
+            border-bottom: 1px solid #d7d7d7;
+            font-size: 12px;
+            color: blue;
+        }
+        
+    </style>
+</head>
+<body>
+    <div>
+    请输入姓名: <input type="text" class="uname">
+    </div>
+    <div>
+        请输入邮箱: <input type="text" class="email">
+    </div>
+    <button>添加</button>
+    <table>
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>邮箱</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>小黑</td>
+                <td>xiaohei@qq.com</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        // 获取元素
+        var btn = document.querySelector('button');
+        var uname = document.querySelector('.uname');
+        var email = document.querySelector('.email')
+        var tbody = document.querySelector('tbody')
+        btn.onclick = function(){
+            if (uname.value.trim() === '' || email.value.trim() === ''){
+                alert('内容不能为空')
+                return;
+            }else{
+                var tr = document.createElement('tr')
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td')
+                td1.innerHTML = uname.value;
+                td2.innerText = email.value;
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tbody.appendChild(tr);
+                uname.value = ''
+                email.value = ''
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选项卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .tab {
+            width: 978px;
+            margin: 100px auto;
+        }
+
+        .tab_list {
+            height: 39px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        .tab_list li {
+            float: left;
+            height: 39px;
+            line-height: 39px;
+            padding: 0 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .tab_list .current {
+            background-color: #c81623;
+            color: #fff;
+        }
+
+        .item_info {
+            padding: 20px 0 0 20px;
+        }
+
+        .item {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <div class="tab_list">
+            <ul>
+                <li class="current">商品介绍</li>
+                <li>规格与包装</li>
+                <li>售后保障</li>
+                <li>商品评价（50000）</li>
+                <li>手机社区</li>
+            </ul>
+        </div>
+        <div class="tab_con">
+            <div class="item" style="display: block;">
+                商品介绍模块内容
+            </div>
+            <div class="item">
+                规格与包装模块内容
+            </div>
+            <div class="item">
+                售后保障模块内容
+            </div>
+            <div class="item">
+                商品评价（50000）模块内容
+            </div>
+            <div class="item">
+                手机社区模块内容
+            </div>
+
+        </div>
+    </div>
+    <script>
+        // 获取元素
+        var lis = document.querySelectorAll('.tab_list li');
+        var items = document.querySelectorAll('.item')
+        for(var i =0;i<lis.length;i++){
+            // 给lis 里面的每个 li 设置index 索引
+            lis[i].setAttribute('index', i)
+            lis[i].onclick =function(){
+                // 先干掉所有li样式
+                for(var i = 0;i<lis.length;i++){
+                    lis[i].className = ''
+                }
+                // 再设置自己的样式
+                this.className = 'current'
+                // 先干掉所有内容
+                for(var i=0;i<items.length;i++){
+                    items[i].style.display = 'none';
+                }
+                // 要想 item 的内容和li 相对应, 需要给lis自定义index
+                // lis 的 index 和items的index 的内容相对应
+                var index = this.getAttribute('index')
+
+                items[index].style.display = 'block'
+
+            }
+        }
+
+        // 获取元素
+        // var aLi = document.querySelectorAll('.tab_list li');
+        // var aDiv = document.querySelectorAll('.item')
+        // // 给每一个 li 注册事件
+        // for (var i = 0; i < aLi.length; i++) {
+        //     aLi[i].setAttribute('index', i)
+        //     aLi[i].onclick = function () {
+        //         // 先干掉所有人
+        //         for (var i = 0; i < aLi.length; i++) {
+        //             aLi[i].className = ''
+        //         }
+        //         // 再设置我自己
+        //         this.className = 'current'
+
+        //         //    干掉所有内容
+        //         for (var i = 0; i < aDiv.length; i++) {
+        //             aDiv[i].style.display = 'none'
+        //         }
+        //         // 设置自己的内容
+        //         var idx = this.getAttribute('index')
+        //         aDiv[idx].style.display = 'block' 
+        //     }
+
+
+
+        // }
+    </script>
+</body>
+
+</html>
