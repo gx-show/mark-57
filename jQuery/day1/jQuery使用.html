@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.min.js"></script>
+    <style>
+        li{
+            width: 200px;
+            height: 100px;
+            background-color: skyblue;
+            margin: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        // jQuery 入口函数的两种方式
+        // $(document).ready(function(){
+        //     $('li').click(function(){
+        //         alert($(this).html())
+        //     })
+        // })
+
+        $(function(){
+            $('li').click(function(){
+                alert($(this).html())
+            })
+        })
+    </script>
+</body>
+</html>

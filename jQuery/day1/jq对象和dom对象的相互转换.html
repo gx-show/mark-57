@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 300px;
+            height: 200px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+</body>
+<script>
+    var obj = {
+        length:2,
+        '0':document.querySelectorAll('div')[0],
+        '1':document.querySelectorAll('div')[1],
+        css:function(cssStyle, value){
+            for(var i = 0;i< this.length; i++){
+                obj[i].style[cssStyle] = value;
+            }
+        }
+    }
+    obj.css('backgroundColor', 'pink')
+</script>
+</html>
