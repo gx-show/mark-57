@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>求最大值 去重 排序</title>
+</head>
+
+<body>
+    <script>
+        // 先找出字符串 '85872637471533203552943982' 中出现次数最多的数字及次数
+        var str = '85872637471533203552943982';
+        var obj = {};
+        // 求最大值
+        for(var i=0;i<str.length;i++){
+            // 先遍历字符串中的每一个字符
+            var char = str.charAt(i)
+            console.log(char);//str中的每个字符
+            // 把char加人到obj中, 如果obj中有这个字符就++, 没有就赋值1
+            if(obj[char]){
+                obj[char]++
+            }else{
+                obj[char] = 1
+            }
+        }
+        console.log(obj);
+        var max = 0; //次数
+        var ch = ''; //数字
+        for(var k in obj){
+            if(obj[k]>max){
+                max = obj[k];
+                ch = k
+            }
+        }
+        console.log(`出现次数的数字是: ${ch}, 次数是: ${max}次`);
+        // 去重
+        var arr = [];
+        for (var i = 0;i<str.length;i++){
+            console.log(str[i]);
+            if (arr.indexOf(str[i]) == -1){
+                arr.push(str[i])
+            }
+        }
+        console.log(arr);
+        for(var i=0 ;i<arr.length;i++){
+            for(var j= 0;j<arr.length - i;j++){
+                if(arr[j]>arr[j+1]){
+                    var temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp
+                }
+            }
+        }
+        console.log(`排序去重后的字符串是: ${arr.join('')}`);
+
+    </script>
+</body>
+
+</html>

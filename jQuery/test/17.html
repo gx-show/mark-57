@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>17题</title>
+</head>
+
+<body>
+    <div style="margin-bottom: 15px;">
+        <input type="text" id="username" placeholder="请输入姓名">
+        <input type="text" id="sex" placeholder="请输入性别">
+        <input type="text" id="age" placeholder="请输入年龄">
+        <input type="button" value="提交" id="btn">
+    </div>
+    <table border="1" width="540">
+        <thead>
+            <tr>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>年龄</td>
+                <td>操作</td>
+            </tr>
+            
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+<script src="./jquery.min.js"></script>
+<script>
+    //     发布留言并存储到本地
+
+    // 要求1：点击提交按钮，让用户输入的内容分别加入到表格对应的列表中
+
+    // 要求2：点击每一行的删除按钮，能删除当前行
+
+    // 要求3：刷新页面时能保留当前的页面效果（数据状态不会消失）
+
+    // 要求4：代码规范
+    $(function(){
+        // 页面打开就渲染一下
+        loadData()
+        // 关于本地存储: 霍秀春宣
+        // 要求1：点击提交按钮，让用户输入的内容分别加入到表格对应的列表中
+        $("#btn").on("click",function(){
+            if($("#username").val() == '' ||$("#sex").val() == ''||$("#age").val() == ''){
+                alert("请输入完整的内容")
+            }else{
+                // 霍 获取本地存储
+                var local = getData()
+                // 秀 修改数据
+                local.push({uname:$("#username").val(),sex:$("#sex").val(),age:$("#age").val()});
+                // 春 存储数据到本地存储
+                saveData(local)
+                loadData()
+                $("#username,#sex,#age").val('')
+            }            
+        })
+
+
+        // 要求2：点击每一行的删除按钮，能删除当前行
+            // 给每个删除自定义索引 (利用each 中的 i), 这样就能删除 data中相对应的行
+        $("tbody").on("click","a",function(){
+            var data = getData(data);
+            var index = $(this).attr("class");
+            console.log(index);
+            data.splice(index, 1)
+            saveData(data)
+            loadData()
+        })
+
+        // 获取本地存储
+        function getData(){
+                var data = localStorage.getItem("userlist");
+                if(data !== null){
+                    return JSON.parse(data)
+                }else{
+                    return []
+                }
+            }
+
+            // 存储数据到本地存储
+            function saveData(data){
+                localStorage.setItem("userlist",JSON.stringify(data))
+            }
+            // 渲染页面
+            function loadData(){
+                var data = getData();
+                $("tbody").empty()
+                // 通过each遍历data 将data中的数据遍历动态生成 渲染到页面
+                $.each(data,function(i, dom){
+                    $("tbody").append(`<tr><td>${dom.uname}</td><td>${dom.sex}</td><td>${dom.age}</td><td ><a href='javascript:;' class="${i}">删除</a></td></tr>`)
+                })
+                
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    })
+    
+</script>
+
+</html>
