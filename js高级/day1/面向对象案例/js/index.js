@@ -25,6 +25,8 @@ class Tab {
             this.lis[i].index = i;
             this.lis[i].onclick = this.toggleTab;
             this.remove[i].onclick = this.removeTab;
+            this.spans[i].ondblclick = this.editTab;
+            this.sections[i].ondblclick = this.editTab;
         }
     }
     // 因为我们动态添加元素 需要重新获取对应的元素
@@ -32,7 +34,7 @@ class Tab {
         this.lis = this.main.querySelectorAll("li");
         this.sections = this.main.querySelectorAll("section");
         this.remove = this.main.querySelectorAll(".icon-guanbi")
-
+        this.spans = this.main.querySelectorAll(".fisrstnav li span:first-child")
     }
     // 1.切换功能
     toggleTab() {
@@ -83,7 +85,26 @@ class Tab {
 
     // 4.修改功能
     editTab() {
+        var str = this.innerHTML;
+        // 双击禁止选定文字
+        window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+        // 双击时在span里面添加一个文本框
+        this.innerHTML = '<input type="text" />'
+        var input = this.children[0];
+        input.value = str;
+        input.select(); //文本框中的文字处于选中状态
 
+        // 当我们离开文本框就把文本框的值给span
+        input.onblur = function () {
+            this.parentNode.innerHTML = this.value;
+        }
+        // 按下回车也可以把文本框中的值给span
+        input.onkeyup = function (e) {
+            if (e.keyCode === 13) {
+                // 手动调用表单失去焦点事件 不需要鼠标离开操作
+                this.blur()
+            }
+        }
     }
 }
 
