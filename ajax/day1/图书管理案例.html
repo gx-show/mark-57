@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书管理</title>
+    <link rel="stylesheet" href="./lib/bootstrap.css">
+    <script src="./lib/jquery.js"></script>
+</head>
+
+<body style="padding:15px">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">图书管理</h3>
+        </div>
+        <div class="panel-body form-inline">
+
+            <div class="input-group">
+                <span class="input-group-addon">书名</span>
+                <input type="text" class="form-control" id="iptBookname" placeholder="请输入书名">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">作者</span>
+                <input type="text" class="form-control" id="iptAuthor" placeholder="请输入作者">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">出版社</span>
+                <input type="text" class="form-control" id="iptPublisher" placeholder="请输入出版社">
+            </div>
+            <button type="button" class="btn btn-primary">添加</button>
+        </div>
+    </div>
+
+
+
+    <!-- 图书的表格 -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            
+        </tbody>
+    </table>
+
+</body>
+<script>
+
+    $(function () {
+        // 获取图书列表数据
+        $.get("http://www.liulongbin.top:3006/api/getbooks", function (res) {
+            if (res.status !== 200) return alert("获取数据失败!")
+            var html = "";
+            res.data.forEach(function(item, index){
+                html+=`<tr><td>${item.id}</td>
+            <td>${item.bookname}</td>
+            <td>${item.author}</td>
+            <td>${item.publisher}</td>
+            <td><a href="javascript:;" id="${item.id}">删除</a></td>
+            </tr>`
+            });
+            $("tbody").html(html);
+            // $.each(res.data, function (i, item) {
+            //     rows.push(`<tr><td>${item.id}</td>
+            // <td>${item.bookname}</td>
+            // <td>${item.author}</td>
+            // <td>${item.publisher}</td>
+            // <td><a href="javascript:;" id="${item.id}">删除</a></td>
+            // </tr>`)
+            // }
+            // )
+            // $("#tbody").empty().append(rows.join(""))
+        })
+
+        // 2.删除功能
+        // 通过代理的方式为动态添加的元素绑定点击事件
+        // $("tbody").on("click","a",function(){
+        //     var id = $(this).data("id")
+        // })
+
+    })
+</script>
+
+</html>
