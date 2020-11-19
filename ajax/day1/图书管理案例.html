@@ -29,7 +29,7 @@
                 <span class="input-group-addon">出版社</span>
                 <input type="text" class="form-control" id="iptPublisher" placeholder="请输入出版社">
             </div>
-            <button type="button" class="btn btn-primary">添加</button>
+            <button type="button" id="addBtn" class="btn btn-primary">添加</button>
         </div>
     </div>
 
@@ -55,7 +55,11 @@
 <script>
 
     $(function () {
+        // 打开页面立即发送 获取数据请求
+        getBookList()
         // 获取图书列表数据
+        // 获取数据封装函数
+        function getBookList(){
         $.get("http://www.liulongbin.top:3006/api/getbooks", function (res) {
             if (res.status !== 200) return alert("获取数据失败!")
             var html = "";
@@ -80,6 +84,7 @@
             // )
             // $("#tbody").empty().append(rows.join(""))
         })
+        }
 
         // 2.删除功能
         // 通过代理的方式为动态添加的元素绑定点击事件
@@ -98,6 +103,40 @@
             })
         })
 
+        // 3.增加功能
+        $("#addBtn").on("click",function(){
+            var bookname = $("#iptBookname").val().trim();
+            var author = $("#iptAuthor").val().trim();
+            var publisher = $("#iptPublisher").val().trim();
+            
+            $.ajax({
+                type:"post",
+                url:"http://www.liulongbin.top:3006/api/addbook",
+                data:{
+                    bookname,
+                    author,
+                    publisher
+                },
+
+                // 发送数据之前要对数据的合法性做验证
+                beforeSend:function(){
+                    // 如果数据合法 不操作
+                    // 如果数据不合法 就return false
+                    if(bookname.length == 0||author.length == 0||publisher.length == 0){
+                        alert("数据不完整")
+                        return false;
+                    }
+                },
+                success:function(res){
+                    if(res.status!= 201)return alert("添加数据失败");
+                    // 重新发送 获取数据请求
+                    getBookList()
+                    $("#iptBookname").val("");
+                    $("#iptAuthor").val("");
+                    $("#iptPublisher").val("")
+                }
+            })              
+        })
     })
 </script>
 
