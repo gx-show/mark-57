@@ -60,11 +60,12 @@
             if (res.status !== 200) return alert("获取数据失败!")
             var html = "";
             res.data.forEach(function(item, index){
-                html+=`<tr><td>${item.id}</td>
-            <td>${item.bookname}</td>
-            <td>${item.author}</td>
-            <td>${item.publisher}</td>
-            <td><a href="javascript:;" id="${item.id}">删除</a></td>
+                html+=`<tr>
+                <td>${item.id}</td>
+                <td>${item.bookname}</td>
+                <td>${item.author}</td>
+                <td>${item.publisher}</td>
+                <td><a href="javascript:;" data-id="${item.id}">删除</a></td>
             </tr>`
             });
             $("tbody").html(html);
@@ -82,9 +83,20 @@
 
         // 2.删除功能
         // 通过代理的方式为动态添加的元素绑定点击事件
-        // $("tbody").on("click","a",function(){
-        //     var id = $(this).data("id")
-        // })
+        $("tbody").on("click","a",function(){
+            var id = $(this).data("id")
+            $.ajax({
+                type:"get",
+                url:"http://www.liulongbin.top:3006/api/delbook",
+                data:{
+                    id
+                },
+                success:(res)=>{
+                    if(res.status!=200) return alert("删除数据失败");
+                    $(this).parents("tr").remove()
+                }
+            })
+        })
 
     })
 </script>
