@@ -26,7 +26,7 @@
                 <span class="input-group-addon">出版社</span>
                 <input type="text" class="form-control" placeholder="请输入出版社" id="publisher">
             </div>
-            <button class="btn btn-primary">添加</button>
+            <button class="btn btn-primary" id="addBtn">添加</button>
         </div>
     </div>
 
@@ -42,35 +42,66 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <!-- <tr>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-            </tr>
+            </tr> -->
         </tbody>
-      </table>
+    </table>
 </body>
 <script>
-    // 获取图书列表数据
-    $.ajax({
-        type:"get",
-        url:"http://www.liulongbin.top:3006/api/getbooks",
-        success:function(res){
-            if(res.status!= 200)return alert("获取图书列表失败")
-            var html = '';
-            res.data.forEach(function(value,index){
-                html+=`<tr>
+    getBookList();
+    function getBookList() {
+        // 获取图书列表数据    
+        $.ajax({
+            type: "get",
+            url: "http://www.liulongbin.top:3006/api/getbooks",
+            success: function (res) {
+                if (res.status != 200) return alert("获取图书列表失败")
+                var html = '';
+                res.data.forEach(function (value, index) {
+                    html += `<tr>
                 <td>${value.id}</td>
                 <td>${value.bookname}</td>
                 <td>${value.author}</td>
                 <td>${value.publisher}</td>
                 <td><a href="javascript:;">删除</a></td>
             </tr>`
-            })
-            $("tbody").html(html)
-        }
+                })
+                $("tbody").html(html)
+            }
+        })
+    }
+    // 添加图书信息
+    $("#addBtn").on("click", function () {
+        var bookname = $("#bookname").val().trim();
+        var author = $("#author").val().trim();
+        var publisher = $("#publisher").val().trim();
+        if (bookname.length <= 0 || author.length <= 0 || publisher.length <= 0) return alert("请填写完整信息");
+        // console.log(123);
+        // post请求记得数据加在data里
+        $.ajax({
+            type: "post",
+            url: "http://www.liulongbin.top:3006/api/addbook",
+            data: {
+                // data中对象名和属性值一样可以简写(属性值是变量时)
+                // bookname: bookname,
+                // author: author,
+                // publisher: publisher
+                bookname,
+                author,
+                publisher
+            },
+            success: function (res) {
+                // console.log(res);
+                // 添加图书成功就重新获取图书列表
+                getBookList()
+            }
+        })
     })
 </script>
+
 </html>
