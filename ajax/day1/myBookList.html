@@ -52,5 +52,25 @@
         </tbody>
       </table>
 </body>
-
+<script>
+    // 获取图书列表数据
+    $.ajax({
+        type:"get",
+        url:"http://www.liulongbin.top:3006/api/getbooks",
+        success:function(res){
+            if(res.status!= 200)return alert("获取图书列表失败")
+            var html = '';
+            res.data.forEach(function(value,index){
+                html+=`<tr>
+                <td>${value.id}</td>
+                <td>${value.bookname}</td>
+                <td>${value.author}</td>
+                <td>${value.publisher}</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>`
+            })
+            $("tbody").html(html)
+        }
+    })
+</script>
 </html>
