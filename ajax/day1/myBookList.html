@@ -68,7 +68,7 @@
                 <td>${value.bookname}</td>
                 <td>${value.author}</td>
                 <td>${value.publisher}</td>
-                <td><a href="javascript:;">删除</a></td>
+                <td><a href="javascript:;" data-id="${value.id}">删除</a></td>
             </tr>`
                 })
                 $("tbody").html(html)
@@ -99,6 +99,25 @@
                 // console.log(res);
                 // 添加图书成功就重新获取图书列表
                 getBookList()
+            }
+        })
+    })
+
+    // 删除图书
+    $("tbody").on("click", "a", function () {
+        // 给a自定义id 和id一致
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "http://www.liulongbin.top:3006/api/delbook",
+            data: {
+                id
+            },
+            // 删除的this指向用箭头函数直接指向btn
+            success: (res) => {
+                console.log(id);
+                if (res.status != 200) return alert("删除图书失败");
+                $(this).parents("tr").remove()
             }
         })
     })
